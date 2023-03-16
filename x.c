@@ -718,15 +718,12 @@ setsel(char *str, Time t)
 		return;
 
 	free(xsel.primary);
-	xsel.clipboard = str;
+	xsel.primary = xstrdup(str);
 
 	XSetSelectionOwner(xw.dpy, XA_PRIMARY, xw.win, t);
-	Atom clipboard = XInternAtom(xw.dpy, "CLIPBOARD", 0);
-	XSetSelectionOwner(xw.dpy, clipboard, xw.win, t);
 	if (XGetSelectionOwner(xw.dpy, XA_PRIMARY) != xw.win)
 		selclear();
-	if (XGetSelectionOwner(xw.dpy, clipboard) != xw.win)
-		selclear();
+	clipcopy(NULL);
 }
 
 void
