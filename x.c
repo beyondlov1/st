@@ -2192,8 +2192,8 @@ run(void)
 				trigger = now;
 				drawing = 1;
 			}
-			timeout = (maxlatency - TIMEDIFF(now, trigger)) \
-			          / maxlatency * minlatency;
+			timeout = (maxlatency - TIMEDIFF(now, trigger))  * minlatency \
+			          / maxlatency;
 			if (timeout > 0)
 				continue;  /* we have time, try to find idle */
 		}
