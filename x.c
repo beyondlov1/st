@@ -18,6 +18,7 @@
 
 char *argv0;
 #include "arg.h"
+#include "autocomplete.h"
 #include "st.h"
 #include "win.h"
 #include "hb.h"
@@ -2053,6 +2054,8 @@ reallocbuf:
 	/* 1. shortcuts */
 	for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
 		if (ksym == bp->keysym && match(bp->mod, e->state)) {
+			if (bp -> func != autocomplete)
+				autocomplete ((const Arg []) { ACMPL_DEACTIVATE });
 			bp->func(&(bp->arg));
 			goto cleanup;
 		}
