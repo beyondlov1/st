@@ -285,6 +285,7 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_o,           externalpipe,   {.v = copyoutput } },
 	//{ MODKEY,               XK_Tab,         autocomplete,   { ACMPL_FUZZY_WORD } },
 	//{ XK_ANY_MOD,               XK_Escape,         autocomplete,   { ACMPL_DEACTIVATE } },
+	{ MODKEY,               XK_Return,      newterm,   {.i = 0 } },
 };
 
 /*

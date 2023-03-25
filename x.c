@@ -1814,6 +1814,7 @@ xsettitle(char *p)
 	XFree(prop.value);
 }
 
+
 int
 xstartdraw(void)
 {
