@@ -235,6 +235,7 @@ static STREscape strescseq;
 static int iofd = 1;
 static int cmdfd;
 static pid_t pid;
+char cwd[128];
 
 static const uchar utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
 static const uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
@@ -862,7 +863,16 @@ ttyread(void)
 		/* keep any incomplete UTF-8 byte sequence for the next call */
 		if (buflen > 0)
 			memmove(buf, buf + written, buflen);
+
 		xsettitle(strrchr(getcwd_by_pid(pid),'/')+1);
+		if (pid) {
+			char *currcwd = getcwd_by_pid(pid);
+			if (currcwd && strcmp(cwd, currcwd)){
+				xsettitle(strrchr(currcwd,'/')+1);
+				strncpy(cwd, currcwd, 128);
+			}
+			xsettitle(strrchr(currcwd,'/')+1);
+		}
 		return ret;
 	}
 }
