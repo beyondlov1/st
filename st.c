@@ -842,6 +842,8 @@ ttynew(const char *line, char *cmd, const char *out, char **args)
 }
 
 
+static char *cwd;
+
 size_t
 ttyread(void)
 {
@@ -867,8 +869,10 @@ ttyread(void)
 
 		if (pid) {
 			char *currcwd = getcwd_by_pid(pid);
-			if (currcwd){
+			if (!cwd || (currcwd && cwd && strcmp(cwd, currcwd))){
+				free(cwd);
 				xsettitle(strrchr(currcwd,'/') + 1);
+				cwd = currcwd;
 			}
 		}
 		return ret;
