@@ -16,6 +16,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <wchar.h>
+#include <time.h>
 
 #include "autocomplete.h"
 #include "st.h"
@@ -235,7 +236,6 @@ static STREscape strescseq;
 static int iofd = 1;
 static int cmdfd;
 static pid_t pid;
-char cwd[128];
 
 static const uchar utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
 static const uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
@@ -841,6 +841,7 @@ ttynew(const char *line, char *cmd, const char *out, char **args)
 	return cmdfd;
 }
 
+
 size_t
 ttyread(void)
 {
@@ -864,14 +865,11 @@ ttyread(void)
 		if (buflen > 0)
 			memmove(buf, buf + written, buflen);
 
-		xsettitle(strrchr(getcwd_by_pid(pid),'/')+1);
 		if (pid) {
 			char *currcwd = getcwd_by_pid(pid);
-			if (currcwd && strcmp(cwd, currcwd)){
-				xsettitle(strrchr(currcwd,'/')+1);
-				strncpy(cwd, currcwd, 128);
+			if (currcwd){
+				xsettitle(strrchr(currcwd,'/') + 1);
 			}
-			xsettitle(strrchr(currcwd,'/')+1);
 		}
 		return ret;
 	}
@@ -3085,7 +3083,7 @@ redraw(void)
 
 char *
 getcwd_by_pid(pid_t pid) {
-	char buf[32];
+	char buf[64];
 	snprintf(buf, sizeof buf, "/proc/%d/cwd", pid);
 	return realpath(buf, NULL);
 }
