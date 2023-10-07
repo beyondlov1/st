@@ -3093,6 +3093,17 @@ getcwd_by_pid(pid_t pid) {
 }
 
 void
+getcmd_by_pid(pid_t pid, char *buf, size_t len) {
+	FILE * fp;
+	char path[64];
+	snprintf(path, sizeof path, "/proc/%d/cmdline", pid);
+   	fp = fopen(path, "r");
+	rewind(fp);
+   	fscanf(fp, "%s", buf);
+	fclose(fp);
+}
+
+void
 newterm(const Arg* a)
 {
 	int res;
