@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "mono:pixelsize=16:antialias=true:autohint=true";
+static char *font = "mono:pixelsize=24:antialias=true:autohint=true";
 static char *font2[] = {
     "NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"};
 static int borderpx = 2;
@@ -260,8 +260,8 @@ static Shortcut shortcuts[] = {
     {ShiftMask, XK_Page_Down, kscrolldown, {.i = -1}},
     {MODKEY, XK_Page_Up, kscrollup, {.i = -1}},
     {MODKEY, XK_Page_Down, kscrolldown, {.i = -1}},
-    {MODKEY, XK_k, kscrollup, {.i = 5}},
-    {MODKEY, XK_j, kscrolldown, {.i = 5}},
+    // {MODKEY, XK_k, kscrollup, {.i = 5}},
+    // {MODKEY, XK_j, kscrolldown, {.i = 5}},
     {MODKEY, XK_Up, kscrollup, {.i = 1}},
     {MODKEY, XK_Down, kscrolldown, {.i = 1}},
     {MODKEY, XK_u, kscrollup, {.i = -1}},
