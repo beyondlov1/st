@@ -29,6 +29,7 @@ st: $(OBJ)
 	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
 
 clean:
+	rm $(DESTDIR)$(PREFIX)/bin/st $(DESTDIR)$(PREFIX)/bin/st-autocomplete
 	rm -f st $(OBJ) st-$(VERSION).tar.gz *.rej *.orig *.o
 
 dist: clean
